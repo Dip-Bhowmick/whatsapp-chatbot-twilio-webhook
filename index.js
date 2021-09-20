@@ -10,16 +10,17 @@ app.get("/timestamp", (req, res) => {
     res.send(`${Date.now()}`);
 });
 
-app.post('/whatsapp', async (req, res) => {
-    console.log(req.body);
+app.post('/whatsapp', (req, res) => {
     var msg = req.body.Body;
     var sender = req.body.From;
+    console.log(msg);
+    console.log(sender);
     twilio.messages.create({
         to: sender,
         body: msg,
         from: "whatsapp:+14155238886"
-    });
-    
+    }).then(sts => console.log(sts));
 });
+
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server start at port: ${port}`));
