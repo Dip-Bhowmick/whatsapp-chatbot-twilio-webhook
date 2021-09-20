@@ -1,5 +1,5 @@
 const express = require("express");
-const client = require('twilio')('AC836db151c1e073e1cfb172ee3c8c0440', 'd56628a0b36efdbb505d1870e270832b', { lazyLoading: true });
+const twilio = require('twilio')('AC836db151c1e073e1cfb172ee3c8c0440', 'd56628a0b36efdbb505d1870e270832b');
 
 const app = express();
 
@@ -13,17 +13,12 @@ app.get("/timestamp", (req, res) => {
 app.post('/whatsapp', async (req, res) => {
     console.log(req.body);
     var msg = req.body.Body;
-    var to = req.body.From;
-    
-    try {
-        client.messages.create({
-            to: to,
-            body: msg,
-            from: "whatsapp:+14155238886"
-        });
-    } catch (error) {
-        console.log(error);
-    }
+    var sender = req.body.From;
+    twilio.messages.create({
+        to: sender,
+        body: msg,
+        from: "whatsapp:+14155238886"
+    });
     
 });
 const port = process.env.PORT || 5000;
