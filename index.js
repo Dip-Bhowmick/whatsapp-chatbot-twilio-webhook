@@ -27,3 +27,5 @@ app.post('/whatsapp', async (req, res) => {
     }
     res.end();
 });
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`Server start at port: ${port}`));
