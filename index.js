@@ -14,18 +14,17 @@ app.post('/whatsapp', async (req, res) => {
     console.log(req.body);
     var msg = req.body.Body;
     var to = req.body.From;
-    if(msg == "hi"){
-        try {
-            client.messages.create({
-                to: to,
-                body: "hola",
-                from: "whatsapp:+14155238886"
-            });
-        } catch (error) {
-            console.log(error);
-        }
+    
+    try {
+        client.messages.create({
+            to: to,
+            body: msg,
+            from: "whatsapp:+14155238886"
+        });
+    } catch (error) {
+        console.log(error);
     }
-    res.end();
+    
 });
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server start at port: ${port}`));
